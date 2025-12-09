@@ -1,30 +1,43 @@
 package br.com.alura.projeto.course;
 
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.List;
 
 @Controller
 public class CourseController {
 
-    @GetMapping("/admin/courses")
-    public String list(@Valid NewCourseForm form) {
-        // TODO: Implementar a Questão 1 - Listagem de Cursos aqui...
+    private final CourseService service;
 
-        return "";
+    @Autowired
+    public CourseController(CourseService service) {
+        this.service = service;
     }
 
-    @GetMapping("/admin/course/new")
-    public String create(NewCourseForm form) {
-        // TODO: Implementar a Questão 1 - Cadastro de Cursos aqui...
+    @GetMapping("/admin/courses")
+    public ResponseEntity<List<Course>> list() { //@Valid NewCourseForm form
+        List<Course> response = service.listAllCourses();
 
-        return "";
+        if (response == null) return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/admin/course/new")
+    public ResponseEntity<Course> create(@RequestBody NewCourseForm form) throws Exception {
+        Course response = service.createNew(form);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/admin/course/sla")
     public String save(@Valid NewCourseForm form) {
         // TODO: Implementar a Questão 1 - Cadastro de Cursos aqui...
 
