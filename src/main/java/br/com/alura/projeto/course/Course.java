@@ -1,5 +1,6 @@
 package br.com.alura.projeto.course;
 
+import br.com.alura.projeto.category.Category;
 import br.com.alura.projeto.user.User;
 import jakarta.persistence.*;
 
@@ -19,6 +20,10 @@ public class Course {
     private String code;
 
     @ManyToOne
+    @JoinColumn(name = "category")
+    private Category category;
+
+    @ManyToOne
     @JoinColumn(name = "instructor")
     private User instructor;
 
@@ -36,11 +41,12 @@ public class Course {
     public Course() {
     }
 
-    public Course(String name, String code, User instructor, String description, Status status, LocalDate inactDate) {
+    public Course(String name, String code, User instructor, String description, Category category, Status status, LocalDate inactDate) {
         this.name = name;
         this.code = code;
         this.instructor = instructor;
         this.description = description;
+        this.category = category;
         this.status = status;
         this.inactDate = inactDate;
     }
@@ -67,6 +73,14 @@ public class Course {
 
     public void setInstructor(User instructor) {
         this.instructor = instructor;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public String getDescription() {

@@ -16,6 +16,9 @@ public class NewCourseForm {
     private String description;
 
     @NotBlank
+    private String category;
+
+    @NotBlank
     @Email
     private String instructorEmail;
 
@@ -43,6 +46,14 @@ public class NewCourseForm {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getInstructorEmail() {

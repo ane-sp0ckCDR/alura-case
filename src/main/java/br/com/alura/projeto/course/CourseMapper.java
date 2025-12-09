@@ -6,6 +6,6 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface CourseMapper {
 
-    //@Mapping(target = "id", ignore = true)
+    @Mapping(target = "category", ignore = true)
     Course newCourseFormToCourse(NewCourseForm form);
 }

@@ -1,6 +1,5 @@
 package br.com.alura.projeto.course;
 
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +19,7 @@ public class CourseController {
     }
 
     @GetMapping("/admin/courses")
-    public ResponseEntity<List<Course>> list() { //@Valid NewCourseForm form
+    public ResponseEntity<List<Course>> list() {
         List<Course> response = service.listAllCourses();
 
         if (response == null) return ResponseEntity.notFound().build();
@@ -29,7 +28,7 @@ public class CourseController {
     }
 
     @PostMapping("/admin/course/new")
-    public ResponseEntity<Course> create(@RequestBody NewCourseForm form) throws Exception {
+    public ResponseEntity<Course> create(@RequestBody NewCourseForm form) {
         Course response = service.createNew(form);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
