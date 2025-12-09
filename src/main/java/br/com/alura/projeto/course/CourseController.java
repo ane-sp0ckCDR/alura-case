@@ -5,10 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -37,18 +34,11 @@ public class CourseController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @PostMapping("/admin/course/sla")
-    public String save(@Valid NewCourseForm form) {
-        // TODO: Implementar a Questão 1 - Cadastro de Cursos aqui...
-
-        return "";
-    }
-
-    @PostMapping("/course/{code}/inactive")
+    @PutMapping("/course/{code}/inactive")
     public ResponseEntity<?> updateStatus(@PathVariable("code") String courseCode) {
-        // TODO: Implementar a Questão 2 - Inativação de Curso aqui...
+        service.inactivateCourse(Long.valueOf(courseCode));
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("The course was inactivated.");
     }
 
 }

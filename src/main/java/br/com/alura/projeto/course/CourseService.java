@@ -5,6 +5,7 @@ import br.com.alura.projeto.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -59,7 +60,22 @@ public class CourseService {
     }
 
     public List<Course> listAllCourses() {
-        //enfeitar
+        //todo ajustar classe de retorno
         return repository.findAll();
     }
+
+    public void inactivateCourse(Long courseId) {
+        Course course = repository.findById(courseId)
+                .orElseThrow(() -> new IllegalArgumentException("Course with ID " + courseId + " does not exist."));
+
+        if (course.getStatus() == Status.INACTIVE) {
+            throw new IllegalStateException("Course is already inactive.");
+        }
+
+        course.setStatus(Status.INACTIVE);
+        course.setInactDate(LocalDate.now());
+
+        repository.save(course);
+    }
+
 }
