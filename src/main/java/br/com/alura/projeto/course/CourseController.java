@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -120,9 +121,18 @@ public class CourseController {
         return "redirect:/admin/courses";
     }
 
-    @PutMapping("/course/{code}/inactive")
-    public ResponseEntity<?> updateStatus(@PathVariable("code") String courseCode) {
-        service.inactivateCourse(Long.valueOf(courseCode));
-        return ResponseEntity.ok("The course was inactivated.");
+    @PostMapping("/course/{id}/inactive")
+    public String inactivateCourse(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes) {
+        try {
+            service.inactivateCourse(id);
+            redirectAttributes.addFlashAttribute("successMessage", "Curso inativado com sucesso.");
+        } catch (IllegalStateException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "O curso já está inativo.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Erro ao inativar o curso.");
+        }
+
+        return "redirect:/admin/courses";
     }
+
 }

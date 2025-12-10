@@ -13,6 +13,13 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h1>Cursos</h1>
+            <c:if test="${not empty successMessage}">
+                <div class="alert alert-success">${successMessage}</div>
+            </c:if>
+
+            <c:if test="${not empty errorMessage}">
+                <div class="alert alert-danger">${errorMessage}</div>
+            </c:if>
             <a class="btn btn-info new-button" href="/admin/course/new">Cadastrar novo</a>
         </div>
 
@@ -36,11 +43,13 @@
                     <td>${c.instructor.name}</td>
                     <td>${c.category.name}</td>
                     <td>${c.status}</td>
+                    <td><a class="btn btn-primary" href="/admin/course/edit/${c.id}"> Editar </a></td>
                     <td>
-                        <a class="btn btn-primary"
-                           href="/admin/course/edit/${c.id}">
-                           Editar
-                        </a>
+                        <form action="/course/${c.id}/inactive" method="post" style="display:inline;">
+                            <button class="btn btn-warning" type="submit" data-status="${c.status}">
+                                Inativar
+                            </button>
+                        </form>
                     </td>
                 </tr>
             </c:forEach>
