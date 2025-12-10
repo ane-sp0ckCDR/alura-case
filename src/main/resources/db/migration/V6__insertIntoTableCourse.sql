@@ -1,0 +1,28 @@
+INSERT INTO Course
+(name, code, instructor, description, category, status)
+VALUES
+('Lógica de Programação', 'logica-pro', 1, 'Curso de lógica de programação', 5, 'ACTIVE'),
+('.NET', 'dotnet', 1, 'Curso de lógica de .NET', 5, 'ACTIVE'),
+('Automação e produtividade', 'automa', 1, 'Curso de automação e produtividade', 5, 'ACTIVE'),
+('HTML', 'html', 1, 'Curso de HTML 5', 6, 'ACTIVE'),
+('CSS', 'css', 1, 'Curso de CSS', 6, 'ACTIVE'),
+('Svelte', 'svelte', 1, 'Curso de Svelte', 6, 'ACTIVE'),
+('Vue.js', 'vue', 1, 'Curso de Vue.js', 6, 'ACTIVE'),
+('SQL e Banco de Dados', 'sql', 1, 'Curso de SQL', 7, 'ACTIVE'),
+('Engenharia de Dados', 'eng-dado', 1, 'Curso de engenharia de dados', 7, 'ACTIVE'),
+('Análise de Dados', 'ana-dado', 1, 'Curso de análise de dados', 7, 'ACTIVE'),
+('IA para Criativos', 'ia-cria', 1, 'Curso de IA para criativos', 8, 'ACTIVE'),
+('IA para Programação', 'ia-prog', 1, 'Curso de IA para programadores', 8, 'ACTIVE'),
+('IA para Negócios', 'ia-neg', 1, 'Curso de IA para negócios', 8, 'ACTIVE'),
+('Linux', 'linux', 1, 'Curso de Linux', 9, 'ACTIVE'),
+('FinOps', 'finops', 1, 'Curso de FinOps', 9, 'ACTIVE'),
+('Automação de Processos', 'auto-proc', 1, 'Curso de automação de processos', 9, 'ACTIVE'),
+('UI Design', 'ui', 1, 'Curso de UI design', 10, 'ACTIVE'),
+('Design System', 'ds', 1, 'Curso de design system', 10, 'ACTIVE'),
+('UX Writing', 'ux', 1, 'Curso de UX writing', 10, 'ACTIVE'),
+('Flutter', 'flutter', 1, 'Curso de Flutter', 11, 'ACTIVE'),
+('Android', 'andr', 1, 'Curso de Android', 11, 'ACTIVE'),
+('iOS', 'ios', 1, 'Curso de iOS', 11, 'ACTIVE'),
+('Agilidade', 'agil', 1, 'Curso de agilidade', 12, 'ACTIVE'),
+('Liderança', 'lider', 1, 'Curso de Liderança', 12, 'ACTIVE'),
+('Ensino e Aprendizagem', 'ensino', 1, 'Curso de ensino e aprendizagem', 12, 'ACTIVE');
