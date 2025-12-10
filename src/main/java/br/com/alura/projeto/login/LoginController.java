@@ -23,7 +23,6 @@ public class LoginController {
     public String home(Model model) {
         List<CategoryListResponse> categoryList = categoryService.retrieveCategoryData();
         model.addAttribute("categoryList", categoryList);
-        //todo realizar o login do usuário
 
         return "login";
     }
