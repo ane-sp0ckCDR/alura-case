@@ -1,6 +1,7 @@
 package br.com.alura.projeto.course;
 
 import br.com.alura.projeto.category.Category;
+import br.com.alura.projeto.category.CategoryRepository;
 import br.com.alura.projeto.category.CategoryService;
 import br.com.alura.projeto.user.User;
 import br.com.alura.projeto.user.UserService;
@@ -17,14 +18,16 @@ public class CourseService {
     private final CourseMapper mapper;
     private final UserService userService;
     private final CategoryService categoryService;
+    private final CategoryRepository categoryRepository;
 
     @Autowired
     public CourseService(CourseRepository repository, CourseMapper mapper, UserService userService,
-                         CategoryService categoryService) {
+                         CategoryService categoryService, CategoryRepository categoryRepository) {
         this.repository = repository;
         this.mapper = mapper;
         this.userService = userService;
         this.categoryService = categoryService;
+        this.categoryRepository = categoryRepository;
     }
 
     public Course createNew(NewCourseForm form) {
@@ -67,7 +70,6 @@ public class CourseService {
     }
 
     public List<Course> listAllCourses() {
-        //todo ajustar classe de retorno
         return repository.findAll();
     }
 
@@ -85,4 +87,27 @@ public class CourseService {
         repository.save(course);
     }
 
+    public Course updateData(Long id, NewCourseForm form) {
+        Course existing = repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Course does not exists"));
+
+        Course partial = mapper.newCourseFormToCourse(form);
+
+        existing.setName(partial.getName());
+        existing.setCode(partial.getCode());
+        existing.setDescription(partial.getDescription());
+
+        Category category = categoryRepository
+                .findById(Long.parseLong(form.getCategory()))
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Invalid category: " + form.getCategory()
+                ));
+
+        existing.setCategory(category);
+
+        User instructor = userService.verifyAndGetInstructorByEmail(form.getInstructorEmail());
+        existing.setInstructor(instructor);
+
+        return repository.save(existing);
+    }
 }

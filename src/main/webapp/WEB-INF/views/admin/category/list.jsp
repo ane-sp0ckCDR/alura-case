@@ -14,8 +14,11 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h1>Categorias</h1>
-            <a class="btn btn-info new-button" href="/admin/category/new">Cadastrar nova</a>
-        </div>
+            <div class="botoes-header">
+                <a class="btn btn-info new-button" href="/admin/category/new">Cadastrar nova</a>
+                <a class="btn btn-info" href="/admin/courses">Catálogo de cursos ></a>
+            </div>
+
         <table class="panel-body table table-hover">
             <thead>
             <tr>
