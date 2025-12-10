@@ -1,4 +1,5 @@
 <%@ page pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -16,19 +17,23 @@
     </div>
 
     <div class="courses">
-        <h2>Ainda não estuda com a gente?</h2>
+        <h1>Ainda não estuda com a gente?</h1>
         <p>São mais de mil cursos nas seguintes áreas:</p>
 
-<%--    TODO: Implementar a Questão 3 (As informações devem vir do seu banco de dados)  --%>
         <div class="grid">
-            <div class="card"><h3>Escola_ PROGRAMAÇÃO</h3><p>Lógica de programação, .NET, Automação e Produtividade</p></div>
-            <div class="card"><h3>Escola_ FRONT-END</h3><p>HTML, CSS, Svelte, VueJS</p></div>
-            <div class="card"><h3>Escola_ DATA SCIENCE</h3><p>SQL e Banco de Dados, Engenharia de Dados, Análise de dados</p></div>
-            <div class="card"><h3>Escola_ INTELIGÊNCIA ARTIFICIAL</h3><p>IA para Criativos, IA para Programação, IA para Negócios</p></div>
-            <div class="card"><h3>Escola_ DEVOPS</h3><p>Linux, FinOps, Automação de processos</p></div>
-            <div class="card"><h3>Escola_ UX & DESIGN</h3><p>UI Design, Design System, UX Writing</p></div>
-            <div class="card"><h3>Escola_ MOBILE</h3><p>Flutter, Android, iOS</p></div>
-            <div class="card"><h3>Escola_ INOVAÇÃO & GESTÃO</h3><p>Agilidade, Liderança, Ensino e Aprendizagem</p></div>
+            <c:forEach var="category" items="${categoryList}">
+                <div class="card">
+                <img src="${pageContext.request.contextPath}/assets/icons/${category.categoryCode}.svg"
+                     class="category-icon"
+                     style="color: ${category.categoryColor};" />
+
+                    <div class="category-title">
+                        <p style="color: ${category.categoryColor} !important" class="line">Escola_</p>
+                        <p style="color: ${category.categoryColor} !important" class="line">${category.categoryName}</p>
+                    </div>
+                    <p>${category.categoryCourses}</p>
+                </div>
+            </c:forEach>
         </div>
     </div>
 </div>
