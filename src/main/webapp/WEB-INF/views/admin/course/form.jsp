@@ -31,7 +31,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Instrutor</label>
                     <div class="col-sm-10">
-                        <select name="instructor" class="form-control" required>
+                        <select name="instructorEmail" class="form-control" required>
                         <option value="">Selecione</option>
                             <c:forEach var="ins" items="${instructors}">
                                 <option value="${ins.email}"
@@ -62,23 +62,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Status</label>
-                    <div class="col-sm-10">
-                        <select name="status" class="form-control">
-                            <option value="ACTIVE"
-                                ${formObject.status == 'ACTIVE' ? 'selected' : ''}>
-                                Ativo
-                            </option>
-
-                            <option value="INACTIVE"
-                                ${formObject.status == 'INACTIVE' ? 'selected' : ''}>
-                                Inativo
-                            </option>
-                        </select>
-                    </div>
                 </div>
-
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" class="btn btn-success">

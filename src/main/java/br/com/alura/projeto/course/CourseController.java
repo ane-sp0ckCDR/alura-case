@@ -22,8 +22,10 @@ public class CourseController {
     private final UserRepository userRepository;
 
     @Autowired
-    public CourseController(CourseService service, CourseRepository courseRepository,
-                            CategoryRepository categoryRepository, UserRepository userRepository) {
+    public CourseController(CourseService service,
+                            CourseRepository courseRepository,
+                            CategoryRepository categoryRepository,
+                            UserRepository userRepository) {
         this.service = service;
         this.courseRepository = courseRepository;
         this.categoryRepository = categoryRepository;
@@ -43,6 +45,7 @@ public class CourseController {
         model.addAttribute("formObject", new NewCourseForm());
         model.addAttribute("formAction", "/admin/course/new");
         model.addAttribute("formTitle", "Cadastrar novo curso");
+
         model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("instructors", userRepository.findByRole(Role.INSTRUCTOR));
 
@@ -50,11 +53,18 @@ public class CourseController {
     }
 
     @PostMapping("/admin/course/new")
-    public String create(@Valid NewCourseForm form, BindingResult result, Model model) {
+    public String create(@Valid NewCourseForm form,
+                         BindingResult result,
+                         Model model) {
+
         if (result.hasErrors()) {
             model.addAttribute("formObject", form);
             model.addAttribute("formAction", "/admin/course/new");
             model.addAttribute("formTitle", "Cadastrar novo curso");
+
+            model.addAttribute("categories", categoryRepository.findAll());
+            model.addAttribute("instructors", userRepository.findByRole(Role.INSTRUCTOR));
+
             return "admin/course/form";
         }
 
@@ -63,7 +73,8 @@ public class CourseController {
     }
 
     @GetMapping("/admin/course/edit/{id}")
-    public String editForm(@PathVariable Long id, Model model) {
+    public String editForm(@PathVariable Long id,
+                           Model model) {
 
         Course course = courseRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Curso não encontrado: " + id));
@@ -80,6 +91,7 @@ public class CourseController {
         model.addAttribute("formObject", form);
         model.addAttribute("formAction", "/admin/course/edit/" + id);
         model.addAttribute("formTitle", "Editar curso");
+
         model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("instructors", userRepository.findByRole(Role.INSTRUCTOR));
 
@@ -87,16 +99,20 @@ public class CourseController {
     }
 
     @PostMapping("/admin/course/edit/{id}")
-    public String update(
-            @PathVariable Long id,
-            @Valid NewCourseForm form,
-            BindingResult result,
-            Model model)
-    {
+    public String update(@PathVariable Long id,
+                         @Valid NewCourseForm form,
+                         BindingResult result,
+                         Model model) {
+
         if (result.hasErrors()) {
+
             model.addAttribute("formObject", form);
             model.addAttribute("formAction", "/admin/course/edit/" + id);
             model.addAttribute("formTitle", "Editar curso");
+
+            model.addAttribute("categories", categoryRepository.findAll());
+            model.addAttribute("instructors", userRepository.findByRole(Role.INSTRUCTOR));
+
             return "admin/course/form";
         }
 
@@ -107,7 +123,6 @@ public class CourseController {
     @PutMapping("/course/{code}/inactive")
     public ResponseEntity<?> updateStatus(@PathVariable("code") String courseCode) {
         service.inactivateCourse(Long.valueOf(courseCode));
-
         return ResponseEntity.ok("The course was inactivated.");
     }
 }
